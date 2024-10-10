@@ -135,6 +135,9 @@ return {
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		config = true,
+		opts = {
+			disable_filetype = { "tex" },
+		},
 	},
 
 	-- Surround text objects with quotes, brackets, etc.
