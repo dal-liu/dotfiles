@@ -1,12 +1,11 @@
 return {
-	-- Gruvbox Material
+	-- Dracula
 	{
-		"sainnhe/gruvbox-material",
+		"Mofiqul/dracula.nvim",
 		priority = 1000, -- Make sure to load this before all the other start plugins.
 		init = function()
 			-- Load the colorscheme here.
-			vim.g.gruvbox_material_foreground = "mix"
-			-- vim.cmd.colorscheme("gruvbox-material")
+			-- vim.cmd.colorscheme("dracula")
 		end,
 	},
 
