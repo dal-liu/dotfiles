@@ -79,9 +79,9 @@ return {
 					-- Select the [p]revious item
 					["<C-p>"] = cmp.mapping.select_prev_item(),
 
-					-- Scroll the documentation window [b]ack / [f]orward
-					["<C-b>"] = cmp.mapping.scroll_docs(-4),
-					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					-- Scroll the documentation window [d]own / [u]p
+					["<C-d>"] = cmp.mapping.scroll_docs(-4),
+					["<C-u>"] = cmp.mapping.scroll_docs(4),
 
 					-- Accept ([y]es) the completion.
 					["<C-y>"] = cmp.mapping.confirm({ select = true }),
@@ -123,7 +123,7 @@ return {
 			vim.g.copilot_no_tab_map = true
 		end,
 		config = function()
-			vim.keymap.set("i", "<C-S-y>", 'copilot#Accept("\\<CR>")', {
+			vim.keymap.set("i", "<C-f>", 'copilot#Accept("\\<CR>")', {
 				expr = true,
 				replace_keycodes = false,
 			})
