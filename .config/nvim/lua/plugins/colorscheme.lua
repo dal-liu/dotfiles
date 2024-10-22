@@ -4,12 +4,28 @@ return {
 		"Mofiqul/dracula.nvim",
 		priority = 1000,
 		init = function()
-			vim.cmd.colorscheme("dracula-soft")
+			vim.cmd.colorscheme("dracula")
 		end,
 		config = function()
 			require("dracula").setup({
 				colors = {
-					selection = "#44475A",
+					bg = "#282a36",
+					fg = "#f6f6f4",
+					red = "#ee6666",
+					orange = "#ffb86c",
+					yellow = "#e7ee98",
+					green = "#62e884",
+					purple = "#bf9eee",
+					cyan = "#97e1f1",
+					pink = "#f286c4",
+					white = "#f6f6f4",
+					bright_red = "#f07c7c",
+					bright_green = "#78f09a",
+					bright_yellow = "#f6f6ae",
+					bright_blue = "#d6b4f7",
+					bright_magenta = "#f49dda",
+					bright_cyan = "#adf6f6",
+					bright_white = "#ffffff",
 				},
 				overrides = function(colors)
 					return {
