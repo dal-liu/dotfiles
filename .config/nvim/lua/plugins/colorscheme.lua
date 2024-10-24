@@ -26,12 +26,15 @@ return {
 					bright_magenta = "#f49dda",
 					bright_cyan = "#adf6f6",
 					bright_white = "#ffffff",
+					selection = "#3e4452",
+					visual = "#44475a",
 				},
 				overrides = function(colors)
 					return {
 						CmpItemAbbr = { fg = colors.fg, bg = colors.menu },
 						CmpItemKind = { fg = colors.fg, bg = colors.menu },
 						NormalFloat = { fg = colors.fg, bg = colors.menu },
+						StatusLine = { fg = colors.fg, bg = colors.bg },
 					}
 				end,
 				italic_comment = false,
