@@ -8,7 +8,6 @@ return {
 		config = function()
 			local custom_dracula = require("lualine.themes.dracula")
 			local colors = require("dracula").colors()
-			local lightgray = "#5f6a8e"
 			local left, right = "", ""
 
 			local modes = { "normal", "insert", "visual", "replace", "command", "inactive" }
@@ -18,18 +17,9 @@ return {
 				custom_dracula[mode].c.bg = colors.bg
 			end
 
-			local left_sep = require("lualine.component"):extend()
-			function left_sep:draw(default_highlight)
-				self.status = " " .. left
-				self.applied_separator = ""
-				self:apply_highlights(default_highlight)
-				self:apply_section_separators()
-				return self.status
-			end
-
-			local right_sep = require("lualine.component"):extend()
-			function right_sep:draw(default_highlight)
-				self.status = right .. " "
+			local empty = require("lualine.component"):extend()
+			function empty:draw(default_highlight)
+				self.status = ""
 				self.applied_separator = ""
 				self:apply_highlights(default_highlight)
 				self:apply_section_separators()
@@ -45,32 +35,32 @@ return {
 				sections = {
 					lualine_a = { { "mode", separator = { left = " " .. left, right = right } } },
 					lualine_b = {
-						{ left_sep, color = { fg = lightgray, bg = colors.bg } },
-						{ "branch" },
-						{ "diff" },
-						{ "diagnostics" },
-						{ right_sep, color = { fg = lightgray, bg = colors.bg } },
+						{ empty, color = { fg = colors.bg, bg = colors.bg } },
+						{ "branch", separator = { left = " " .. left, right = right } },
+						{ "diff", separator = { right = right } },
+						{ "diagnostics", separator = { right = right } },
 					},
 					lualine_c = {
+						{ empty, color = { fg = colors.bg, bg = colors.bg } },
 						{
 							"filename",
 							path = 1,
 							color = { bg = colors.visual },
-							separator = { left = left, right = right },
+							separator = { left = " " .. left, right = right },
 						},
 					},
 					lualine_x = {
 						{
 							"filetype",
 							color = { bg = colors.visual },
-							separator = { left = left, right = right },
+							separator = { left = left, right = right .. " " },
 						},
+						{ empty, color = { fg = colors.bg, bg = colors.bg } },
 					},
 					lualine_y = {
-						{ left_sep, color = { fg = lightgray, bg = colors.bg } },
-						{ "progress" },
-						{ "location" },
-						{ right_sep, color = { fg = lightgray, bg = colors.bg } },
+						{ "progress", separator = { left = left } },
+						{ "location", separator = { right = right .. " " } },
+						{ empty, color = { fg = colors.bg, bg = colors.bg } },
 					},
 					lualine_z = {
 						{ "datetime", style = "%I:%M %p", separator = { left = left, right = right .. " " } },
