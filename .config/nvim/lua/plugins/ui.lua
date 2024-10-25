@@ -8,7 +8,8 @@ return {
 		config = function()
 			local custom_dracula = require("lualine.themes.dracula")
 			local colors = require("dracula").colors()
-			local left, right = "", ""
+			local left = { left = " ", right = "" }
+			local right = { left = "", right = " " }
 
 			local modes = { "normal", "insert", "visual", "replace", "command", "inactive" }
 			for _, mode in ipairs(modes) do
@@ -33,37 +34,55 @@ return {
 					section_separators = "",
 				},
 				sections = {
-					lualine_a = { { "mode", separator = { left = " " .. left, right = right } } },
-					lualine_b = {
+					lualine_a = {
+						{ "mode", separator = left },
 						{ empty, color = { fg = colors.bg, bg = colors.bg } },
-						{ "branch", separator = { left = " " .. left, right = right } },
-						{ "diff", separator = { right = right } },
-						{ "diagnostics", separator = { right = right } },
+					},
+					lualine_b = {
+						{ "branch", separator = left },
+						{ "diff", separator = left },
+						{ "diagnostics", separator = left },
+						{ empty, color = { fg = colors.bg, bg = colors.bg } },
 					},
 					lualine_c = {
-						{ empty, color = { fg = colors.bg, bg = colors.bg } },
-						{
-							"filename",
-							path = 1,
-							color = { bg = colors.visual },
-							separator = { left = " " .. left, right = right },
-						},
+						{ "filename", path = 1, color = { bg = colors.visual }, separator = left },
 					},
 					lualine_x = {
+						{ "filetype", color = { bg = colors.visual }, separator = right },
 						{
-							"filetype",
+							function()
+								local msg = ""
+								local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+								local clients = vim.lsp.get_active_clients()
+								if next(clients) == nil then
+									return msg
+								end
+								local first = true
+								for _, client in ipairs(clients) do
+									local filetypes = client.config.filetypes
+									if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+										if first then
+											msg = client.name
+											first = false
+										else
+											msg = msg .. ", " .. client.name
+										end
+									end
+								end
+								return msg
+							end,
+							icon = " ",
 							color = { bg = colors.visual },
-							separator = { left = left, right = right .. " " },
+							separator = right,
 						},
-						{ empty, color = { fg = colors.bg, bg = colors.bg } },
 					},
 					lualine_y = {
-						{ "progress", separator = { left = left } },
-						{ "location", separator = { right = right .. " " } },
 						{ empty, color = { fg = colors.bg, bg = colors.bg } },
+						{ "progress", separator = right },
 					},
 					lualine_z = {
-						{ "datetime", style = "%I:%M %p", separator = { left = left, right = right .. " " } },
+						{ empty, color = { fg = colors.bg, bg = colors.bg } },
+						{ "location", separator = right },
 					},
 				},
 			})
