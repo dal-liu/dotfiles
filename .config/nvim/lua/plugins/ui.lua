@@ -2,87 +2,40 @@ return {
 	-- Statusline
 	{
 		"nvim-lualine/lualine.nvim",
+		cond = not vim.g.vscode,
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
-			local custom_dracula = require("lualine.themes.dracula")
-			local colors = require("dracula").colors()
-			local left = { left = " ", right = "" }
-			local right = { left = "", right = " " }
-
-			local modes = { "normal", "insert", "visual", "replace", "command", "inactive" }
-			for _, mode in ipairs(modes) do
-				custom_dracula[mode].b.fg = colors.fg
-				custom_dracula[mode].c.fg = colors.fg
-				custom_dracula[mode].c.bg = colors.bg
-			end
-
-			local empty = require("lualine.component"):extend()
-			function empty:draw(default_highlight)
-				self.status = ""
-				self.applied_separator = ""
-				self:apply_highlights(default_highlight)
-				self:apply_section_separators()
-				return self.status
-			end
-
 			require("lualine").setup({
 				options = {
-					theme = custom_dracula,
-					component_separators = "|",
-					section_separators = "",
+					theme = "dracula",
 				},
 				sections = {
-					lualine_a = {
-						{ "mode", separator = left },
-						{ empty, color = { fg = colors.bg, bg = colors.bg } },
-					},
-					lualine_b = {
-						{ "branch", separator = left },
-						{ "diff", separator = left },
-						{ "diagnostics", separator = left },
-						{ empty, color = { fg = colors.bg, bg = colors.bg } },
-					},
 					lualine_c = {
-						{ "filename", path = 1, color = { bg = colors.visual }, separator = left },
+						{ "filename", path = 1 },
 					},
 					lualine_x = {
-						{ "filetype", color = { bg = colors.visual }, separator = right },
 						{
 							function()
-								local msg = ""
 								local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
 								local clients = vim.lsp.get_active_clients()
 								if next(clients) == nil then
-									return msg
+									return ""
 								end
-								local first = true
+								local lsp_client_names = {}
 								for _, client in ipairs(clients) do
 									local filetypes = client.config.filetypes
 									if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-										if first then
-											msg = client.name
-											first = false
-										else
-											msg = msg .. ", " .. client.name
-										end
+										table.insert(lsp_client_names, client.name)
 									end
 								end
-								return msg
+								table.sort(lsp_client_names)
+								return table.concat(lsp_client_names, ", ")
 							end,
 							icon = " ",
-							color = { bg = colors.visual },
-							separator = right,
 						},
-					},
-					lualine_y = {
-						{ empty, color = { fg = colors.bg, bg = colors.bg } },
-						{ "progress", separator = right },
-					},
-					lualine_z = {
-						{ empty, color = { fg = colors.bg, bg = colors.bg } },
-						{ "location", separator = right },
+						{ "filetype" },
 					},
 				},
 			})

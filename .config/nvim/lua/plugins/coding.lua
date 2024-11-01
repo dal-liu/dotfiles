@@ -119,6 +119,7 @@ return {
 	-- GitHub Copilot
 	{
 		"github/copilot.vim",
+		cond = not vim.g.vscode,
 		init = function()
 			vim.g.copilot_no_tab_map = true
 		end,
