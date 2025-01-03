@@ -16,6 +16,7 @@ return {
 						StatusLine = { fg = colors.fg, bg = colors.bg },
 					}
 				end,
+				show_end_of_buffer = true,
 			})
 		end,
 	},
