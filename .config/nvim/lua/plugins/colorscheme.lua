@@ -11,9 +11,9 @@ return {
 				overrides = function(colors)
 					return {
 						CmpItemAbbr = { fg = colors.fg, bg = colors.menu },
-						CmpItemKind = { fg = colors.fg, bg = colors.menu },
 						NormalFloat = { fg = colors.fg, bg = colors.menu },
 						StatusLine = { fg = colors.fg, bg = colors.bg },
+						TelescopeSelection = { fg = colors.fg, bg = colors.selection },
 					}
 				end,
 				show_end_of_buffer = true,
