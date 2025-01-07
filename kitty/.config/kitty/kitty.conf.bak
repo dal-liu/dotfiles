@@ -5,7 +5,6 @@ italic_font      auto
 bold_italic_font auto
 # END_KITTY_FONTS
 
-
 font_size 16
 modify_font cell_height 111%
 modify_font cell_width 93%
@@ -16,13 +15,73 @@ cursor_blink_interval 0
 scrollback_lines 10000
 
 tab_bar_edge top
-tab_bar_margin_width 5.0
 tab_bar_style custom
 tab_title_template "{fmt.fg.red}{bell_symbol}{activity_symbol}{fmt.fg.tab}{index}: {title}"
 active_tab_font_style normal
 
+macos_titlebar_color #282a36
 macos_option_as_alt yes
 macos_quit_when_last_window_closed yes
+
+wayland_titlebar_color #282a36
+
+# dracula
+foreground            #f8f8f2
+background            #282a36
+selection_foreground  #ffffff
+selection_background  #44475a
+
+url_color #8be9fd
+
+# black
+color0  #21222c
+color8  #6272a4
+
+# red
+color1  #ff5555
+color9  #ff6e6e
+
+# green
+color2  #50fa7b
+color10 #69ff94
+
+# yellow
+color3  #f1fa8c
+color11 #ffffa5
+
+# blue
+color4  #bd93f9
+color12 #d6acff
+
+# magenta
+color5  #ff79c6
+color13 #ff92df
+
+# cyan
+color6  #8be9fd
+color14 #a4ffff
+
+# white
+color7  #f8f8f2
+color15 #ffffff
+
+# Cursor colors
+cursor            #f8f8f2
+cursor_text_color background
+
+# Tab bar colors
+active_tab_foreground   #f8f8f2
+active_tab_background   #44475a
+inactive_tab_foreground #abb2bf
+inactive_tab_background #282a36
+
+# Marks
+mark1_foreground #282a36
+mark1_background #ff5555
+
+# Splits/Windows
+active_border_color #f8f8f2
+inactive_border_color #6272a4
 
 map cmd+1 goto_tab 1
 map cmd+2 goto_tab 2
@@ -49,9 +108,3 @@ map ctrl+shift+q close_window
 map ctrl+shift+t new_tab_with_cwd
 map ctrl+shift+w close_tab
 map ctrl+shift+enter new_window_with_cwd
-
-
-# BEGIN_KITTY_THEME
-# Dracula
-include current-theme.conf
-# END_KITTY_THEME

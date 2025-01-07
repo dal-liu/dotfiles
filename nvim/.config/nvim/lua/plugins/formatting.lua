@@ -36,7 +36,7 @@ return {
 				json = { "prettier" },
 				lua = { "stylua" },
 				latex = { "latexindent" },
-				python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
+				python = { "black", "isort" },
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
 			},

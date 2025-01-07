@@ -67,21 +67,6 @@ return {
 				end,
 			})
 
-			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("lsp-attach-disable-ruff-hover", { clear = true }),
-				callback = function(args)
-					local client = vim.lsp.get_client_by_id(args.data.client_id)
-					if client == nil then
-						return
-					end
-					if client.name == "ruff" then
-						-- Disable hover in favor of Pyright
-						client.server_capabilities.hoverProvider = false
-					end
-				end,
-				desc = "LSP: Disable hover capability from Ruff",
-			})
-
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
 			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
@@ -99,21 +84,7 @@ return {
 				gopls = {},
 				html = {},
 				lua_ls = {},
-				pyright = {
-					settings = {
-						pyright = {
-							-- Using Ruff's import organizer
-							disableOrganizeImports = true,
-						},
-						python = {
-							analysis = {
-								-- Ignore all files for analysis to exclusively use Ruff for linting
-								ignore = { "*" },
-							},
-						},
-					},
-				},
-				ruff = {},
+				pyright = {},
 				rust_analyzer = {},
 				texlab = {},
 				ts_ls = {},
@@ -122,6 +93,9 @@ return {
 			-- Ensure the servers and tools above are installed
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
+				"black",
+				"clang-format",
+				"isort",
 				"prettier",
 				"stylua",
 			})
@@ -137,13 +111,13 @@ return {
 				},
 			})
 
+			require("lspconfig").racket_langserver.setup({})
+
 			local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
 			for type, icon in pairs(signs) do
 				local hl = "DiagnosticSign" .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 			end
-
-			require("lspconfig").racket_langserver.setup({})
 		end,
 	},
 }
