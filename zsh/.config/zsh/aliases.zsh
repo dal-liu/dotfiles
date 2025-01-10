@@ -1,3 +1,4 @@
-alias l="ls -A"
-alias ll="ls -lA"
+alias l="ls -CF"
+alias la="ls -A"
+alias ll="ls -alF"
 alias vim="nvim"
