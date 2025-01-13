@@ -13,6 +13,7 @@ return {
 		event = "VeryLazy",
 		dependencies = {
 			"echasnovski/mini.icons",
+			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
 			require("which-key").setup({
@@ -63,7 +64,7 @@ return {
 					else
 						gitsigns.nav_hunk("next")
 					end
-				end, { desc = "Jump to next git [c]hange" })
+				end, { desc = "Jump to next git change" })
 
 				map("n", "[c", function()
 					if vim.wo.diff then
@@ -71,30 +72,30 @@ return {
 					else
 						gitsigns.nav_hunk("prev")
 					end
-				end, { desc = "Jump to previous git [c]hange" })
+				end, { desc = "Jump to previous git change" })
 
 				-- Actions
+				map("n", "<leader>hs", gitsigns.stage_hunk, { desc = "Git stage hunk" })
+				map("n", "<leader>hr", gitsigns.reset_hunk, { desc = "Git reset hunk" })
 				map("v", "<leader>hs", function()
 					gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-				end, { desc = "stage git hunk" })
+				end, { desc = "Git stage hunk" })
 				map("v", "<leader>hr", function()
 					gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-				end, { desc = "reset git hunk" })
-				map("n", "<leader>hs", gitsigns.stage_hunk, { desc = "git [s]tage hunk" })
-				map("n", "<leader>hr", gitsigns.reset_hunk, { desc = "git [r]eset hunk" })
-				map("n", "<leader>hS", gitsigns.stage_buffer, { desc = "git [S]tage buffer" })
-				map("n", "<leader>hu", gitsigns.undo_stage_hunk, { desc = "git [u]ndo stage hunk" })
-				map("n", "<leader>hR", gitsigns.reset_buffer, { desc = "git [R]eset buffer" })
-				map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "git [p]review hunk" })
-				map("n", "<leader>hb", gitsigns.blame_line, { desc = "git [b]lame line" })
-				map("n", "<leader>hd", gitsigns.diffthis, { desc = "git [d]iff against index" })
+				end, { desc = "Git reset hunk" })
+				map("n", "<leader>hS", gitsigns.stage_buffer, { desc = "Git stage buffer" })
+				map("n", "<leader>hu", gitsigns.undo_stage_hunk, { desc = "Git undo stage hunk" })
+				map("n", "<leader>hR", gitsigns.reset_buffer, { desc = "Git reset buffer" })
+				map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "Git preview hunk" })
+				map("n", "<leader>hb", function()
+					gitsigns.blame_line({ full = true })
+				end, { desc = "Git blame line" })
+				map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "Git toggle current line blame" })
+				map("n", "<leader>hd", gitsigns.diffthis, { desc = "Git diff against index" })
 				map("n", "<leader>hD", function()
-					gitsigns.diffthis("@")
-				end, { desc = "git [D]iff against last commit" })
-
-				-- Toggles
-				map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "[T]oggle git show [b]lame line" })
-				map("n", "<leader>tD", gitsigns.toggle_deleted, { desc = "[T]oggle git show [D]eleted" })
+					gitsigns.diffthis("~")
+				end, { desc = "Git diff against last commit" })
+				map("n", "<leader>td", gitsigns.toggle_deleted, { desc = "Git toggle deleted" })
 			end,
 		},
 	},
@@ -114,7 +115,7 @@ return {
 					width = 30,
 				},
 			})
-			vim.keymap.set("n", "<leader>n", ":Neotree toggle<CR>", { desc = "Toggle neo-tree" })
+			vim.keymap.set("n", "<leader>tn", ":Neotree toggle<CR>", { desc = "Toggle neo-tree" })
 		end,
 	},
 
