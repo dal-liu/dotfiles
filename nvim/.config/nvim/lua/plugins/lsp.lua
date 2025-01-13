@@ -1,79 +1,24 @@
 return {
-	-- Configures LuaLS for editing Neovim config files
+	-- configure LuaLS for editing neovim config
 	{
 		"folke/lazydev.nvim",
-		ft = "lua", -- only load on lua files
+		ft = "lua",
 		opts = {
 			library = {
-				-- Load luvit types when the `vim.uv` word is found
-				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 			},
 		},
 	},
 
-	-- Optional `vim.uv` typings
-	{ "Bilal2453/luvit-meta", lazy = true },
-
-	-- LSP Configuration & Plugins
+	-- LSP configuration
 	{
 		"neovim/nvim-lspconfig",
-		cond = not vim.g.vscode,
 		dependencies = {
-			-- Automatically install LSPs and related tools to stdpath for Neovim
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
-			"WhoIsSethDaniel/mason-tool-installer.nvim",
-
-			-- Useful status updates for LSP.
-			{ "j-hui/fidget.nvim", opts = {} },
 		},
-		config = function()
-			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("lsp-attach-set-keymaps", { clear = true }),
-				callback = function(event)
-					local map = function(keys, func, desc)
-						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
-					end
-
-					-- Go to definition of a variable
-					map("gd", vim.lsp.buf.definition, "[G]o to [d]efinition")
-
-					-- Go to references of a variable
-					map("gr", vim.lsp.buf.references, "[G]o to [R]eferences")
-
-					-- Jump to the implementation of the word under your cursor.
-					map("gi", vim.lsp.buf.implementation, "[G]o to [I]mplementation")
-
-					-- Jump to the type definition of the word under your cursor.
-					map("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
-
-					-- Show the symbols in the current document.
-					map("<leader>ds", vim.lsp.buf.document_symbol, "[D]ocument [S]ymbol")
-
-					-- Show the symbols in the current workspace.
-					map("<leader>ws", vim.lsp.buf.workspace_symbol, "[W]orkspace [S]ymbol")
-
-					-- Rename the variable under your cursor.
-					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-
-					-- Execute a code action
-					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-
-					-- Opens a popup that displays documentation about the word under your cursor
-					map("K", vim.lsp.buf.hover, "Hover Documentation")
-
-					-- Go to declaration
-					map("gD", vim.lsp.buf.declaration, "[G]o to [D]eclaration")
-				end,
-			})
-
-			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-
-			require("mason").setup()
-
-			-- Enable the following language servers
-			local servers = {
+		opts = {
+			servers = {
 				clangd = {
 					capabilities = {
 						offsetEncoding = { "utf-16" },
@@ -88,25 +33,39 @@ return {
 				rust_analyzer = {},
 				texlab = {},
 				ts_ls = {},
-			}
-
-			-- Ensure the servers and tools above are installed
-			local ensure_installed = vim.tbl_keys(servers or {})
-			vim.list_extend(ensure_installed, {
-				"black",
-				"clang-format",
-				"isort",
-				"prettier",
-				"stylua",
+			},
+		},
+		config = function(_, opts)
+			vim.api.nvim_create_autocmd("LspAttach", {
+				group = vim.api.nvim_create_augroup("lsp-attach-set-keymaps", { clear = true }),
+				callback = function(event)
+					local map = function(keys, func, desc)
+						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+					end
+					map("gd", require("telescope.builtin").lsp_definitions, "Go to definition")
+					map("gr", require("telescope.builtin").lsp_references, "Go to references")
+					map("<leader>rn", vim.lsp.buf.rename, "Rename")
+					map("K", vim.lsp.buf.hover, "Hover documentation")
+				end,
 			})
-			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+			require("mason").setup()
 
 			require("mason-lspconfig").setup({
+				automatic_installation = false,
+				ensure_installed = {},
 				handlers = {
 					function(server_name)
-						local server = servers[server_name] or {}
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
+						local config = opts.servers[server_name] or {}
+						config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+						config.handlers = {
+							["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" }),
+							["textDocument/signatureHelp"] = vim.lsp.with(
+								vim.lsp.handlers.signature_help,
+								{ border = "single" }
+							),
+						}
+						require("lspconfig")[server_name].setup(config)
 					end,
 				},
 			})
@@ -118,6 +77,15 @@ return {
 				local hl = "DiagnosticSign" .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 			end
+
+			vim.diagnostic.config({
+				float = {
+					border = "single",
+				},
+				virtual_text = {
+					prefix = "●",
+				},
+			})
 		end,
 	},
 }

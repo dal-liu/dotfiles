@@ -9,7 +9,7 @@ return {
 					require("conform").format({ async = true, lsp_fallback = true })
 				end,
 				mode = "",
-				desc = "[F]ormat buffer",
+				desc = "Format buffer",
 			},
 		},
 		opts = {
@@ -35,8 +35,8 @@ return {
 				javascriptreact = { "prettier" },
 				json = { "prettier" },
 				lua = { "stylua" },
-				latex = { "latexindent" },
-				python = { "black", "isort" },
+				tex = { "latexindent" },
+				python = { "isort", "black" },
 				typescript = { "prettier" },
 				typescriptreact = { "prettier" },
 			},

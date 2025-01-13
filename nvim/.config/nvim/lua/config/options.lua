@@ -64,10 +64,3 @@ vim.opt.expandtab = true
 
 -- Have one status line for all windows
 vim.opt.laststatus = 3
-
--- Border for diagnostic window
-vim.diagnostic.config({
-	float = {
-		border = "single",
-	},
-})

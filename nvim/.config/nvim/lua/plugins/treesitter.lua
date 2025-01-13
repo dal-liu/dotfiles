@@ -1,21 +1,13 @@
 return {
+	-- automatically add "end" in ruby, lua, etc.
+	"RRethy/nvim-treesitter-endwise",
+
+	-- treesitter configuration
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		opts = {
-			ensure_installed = {
-				"bash",
-				"c",
-				"diff",
-				"html",
-				"lua",
-				"luadoc",
-				"markdown",
-				"markdown_inline",
-				"query",
-				"vim",
-				"vimdoc",
-			},
+			ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
 			auto_install = true,
 			highlight = {
 				enable = true,
@@ -35,14 +27,11 @@ return {
 		end,
 	},
 
-	-- Automatically add closing tags for HTML and JSX
+	-- auto close and rename html tags
 	{
 		"windwp/nvim-ts-autotag",
 		config = function()
 			require("nvim-ts-autotag").setup()
 		end,
 	},
-
-	-- Automatically add closing characters for some languages
-	"RRethy/nvim-treesitter-endwise",
 }

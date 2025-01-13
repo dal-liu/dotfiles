@@ -1,5 +1,4 @@
 return {
-	-- Dracula
 	{
 		"Mofiqul/dracula.nvim",
 		priority = 1000,
@@ -11,8 +10,10 @@ return {
 				show_end_of_buffer = true,
 				overrides = function(colors)
 					return {
-						CmpItemAbbr = { fg = colors.fg },
-						CmpItemAbbrMatch = { fg = colors.cyan },
+						BlinkCmpKind = {},
+						BlinkCmpLabel = { fg = colors.fg },
+						BlinkCmpLabelDeprecated = { fg = colors.comment },
+						BlinkCmpLabelMatch = { fg = colors.cyan },
 						FloatBorder = { fg = colors.comment },
 						PmenuSel = { bg = colors.selection },
 						TelescopeSelection = { bg = colors.selection },

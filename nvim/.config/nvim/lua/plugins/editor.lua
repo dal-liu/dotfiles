@@ -1,9 +1,45 @@
 return {
-	-- Adds git related signs to the gutter, as well as utilities for managing changes
+	-- highlight todos
+	{
+		"folke/todo-comments.nvim",
+		event = "VimEnter",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {},
+	},
+
+	-- show pending keybinds
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		dependencies = {
+			"echasnovski/mini.icons",
+		},
+		config = function()
+			require("which-key").setup({
+				preset = "modern",
+			})
+			require("which-key").add({
+				{ "<leader>r", group = "Rename" },
+				{ "<leader>s", group = "Search" },
+				{ "<leader>t", group = "Toggle" },
+				{ "<leader>h", group = "Git hunk", mode = { "n", "v" } },
+			})
+		end,
+	},
+
+	-- git integration
 	{
 		"lewis6991/gitsigns.nvim",
 		opts = {
 			signs = {
+				add = { text = "▎" },
+				change = { text = "▎" },
+				delete = { text = "" },
+				topdelete = { text = "" },
+				changedelete = { text = "▎" },
+				untracked = { text = "▎" },
+			},
+			signs_staged = {
 				add = { text = "▎" },
 				change = { text = "▎" },
 				delete = { text = "" },
@@ -63,18 +99,9 @@ return {
 		},
 	},
 
-	-- Highlight todo, notes, etc in comments
-	{
-		"folke/todo-comments.nvim",
-		event = "VimEnter",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = { signs = false },
-	},
-
-	-- File explorer
+	-- file explorer
 	{
 		"nvim-neo-tree/neo-tree.nvim",
-		-- enabled = false,
 		branch = "v3.x",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
@@ -87,11 +114,11 @@ return {
 					width = 30,
 				},
 			})
-			vim.keymap.set("n", "<leader>n", ":Neotree toggle<CR>", { desc = "Toggle [N]eo-tree" })
+			vim.keymap.set("n", "<leader>n", ":Neotree toggle<CR>", { desc = "Toggle neo-tree" })
 		end,
 	},
 
-	-- Fuzzy Finder (files, lsp, etc)
+	-- fuzzy finder
 	{
 		"nvim-telescope/telescope.nvim",
 		event = "VimEnter",
