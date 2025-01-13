@@ -28,8 +28,17 @@ return {
 				eslint = {},
 				gopls = {},
 				html = {},
-				lua_ls = {},
+				lua_ls = {
+					settings = {
+						Lua = {
+							completion = {
+								callSnippet = "Replace",
+							},
+						},
+					},
+				},
 				pyright = {},
+				racket_langserver = {},
 				rust_analyzer = {},
 				texlab = {},
 				ts_ls = {},
@@ -50,27 +59,20 @@ return {
 			})
 
 			require("mason").setup()
+			require("mason-lspconfig").setup()
 
-			require("mason-lspconfig").setup({
-				automatic_installation = false,
-				ensure_installed = {},
-				handlers = {
-					function(server_name)
-						local config = opts.servers[server_name] or {}
-						config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-						config.handlers = {
-							["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" }),
-							["textDocument/signatureHelp"] = vim.lsp.with(
-								vim.lsp.handlers.signature_help,
-								{ border = "single" }
-							),
-						}
-						require("lspconfig")[server_name].setup(config)
-					end,
-				},
-			})
-
-			require("lspconfig").racket_langserver.setup({})
+			local lspconfig = require("lspconfig")
+			for server, config in pairs(opts.servers) do
+				config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+				config.handlers = {
+					["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single" }),
+					["textDocument/signatureHelp"] = vim.lsp.with(
+						vim.lsp.handlers.signature_help,
+						{ border = "single" }
+					),
+				}
+				lspconfig[server].setup(config)
+			end
 
 			local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
 			for type, icon in pairs(signs) do
