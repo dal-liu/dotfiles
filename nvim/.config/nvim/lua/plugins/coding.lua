@@ -33,6 +33,7 @@ return {
 	-- completion plugin
 	{
 		"saghen/blink.cmp",
+		cond = not vim.g.vscode,
 		dependencies = "rafamadriz/friendly-snippets",
 		version = "*",
 		opts = {
@@ -45,16 +46,16 @@ return {
 				},
 			},
 			keymap = {
-				preset = "default",
+				preset = "none",
 				["<C-d>"] = { "scroll_documentation_down" },
 				["<C-e>"] = { "cancel" },
 				["<C-h>"] = { "snippet_backward" },
 				["<C-l>"] = { "snippet_forward" },
-				["<C-n>"] = { "select_next" },
-				["<C-p>"] = { "select_prev" },
+				["<C-n>"] = { "select_next", "fallback" },
+				["<C-p>"] = { "select_prev", "fallback" },
 				["<C-u>"] = { "scroll_documentation_up" },
 				["<C-Space>"] = { "show" },
-				["<Tab>"] = { "accept" },
+				["<Tab>"] = { "accept", "fallback" },
 			},
 			sources = {
 				default = { "lazydev", "lsp", "path", "snippets", "buffer" },

@@ -22,4 +22,9 @@ return {
 			require("lualine").setup({})
 		end,
 	},
+
+	{
+		"sphamba/smear-cursor.nvim",
+		opts = {},
+	},
 }

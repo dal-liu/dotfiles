@@ -13,6 +13,7 @@ return {
 	-- LSP configuration
 	{
 		"neovim/nvim-lspconfig",
+		cond = not vim.g.vscode,
 		dependencies = {
 			"williamboman/mason.nvim",
 			"williamboman/mason-lspconfig.nvim",
@@ -49,13 +50,31 @@ return {
 				group = vim.api.nvim_create_augroup("lsp-attach-set-keymaps", { clear = true }),
 				callback = function(event)
 					local map = function(keys, func, desc)
-						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = desc })
 					end
-					map("gd", require("telescope.builtin").lsp_definitions, "Go to definition")
-					map("gr", require("telescope.builtin").lsp_references, "Go to references")
+
+					local fzf = require("fzf-lua")
+					map("gd", fzf.lsp_definitions, "Go to definition")
+					map("gr", fzf.lsp_references, "Go to references")
+					map("gD", fzf.lsp_declarations, "Go to declaration")
+					map("gI", fzf.lsp_implementations, "Go to implementation")
+					map("<leader>ds", fzf.lsp_document_symbols, "Document symbols")
 					map("<leader>rn", vim.lsp.buf.rename, "Rename")
+					map("<leader>ws", fzf.lsp_live_workspace_symbols, "Workspace symbols")
+					map("<leader>D", fzf.lsp_typedefs, "Type definition")
 					map("K", vim.lsp.buf.hover, "Hover documentation")
 				end,
+			})
+
+			local signs = { ERROR = "󰅚 ", WARN = "󰀪 ", INFO = "󰋽 ", HINT = "󰌶 " }
+			local diagnostic_signs = {}
+			for type, icon in pairs(signs) do
+				diagnostic_signs[vim.diagnostic.severity[type]] = icon
+			end
+			vim.diagnostic.config({
+				float = { border = "single" },
+				signs = { text = diagnostic_signs },
+				virtual_text = { prefix = "●" },
 			})
 
 			require("mason").setup()
@@ -73,21 +92,6 @@ return {
 				}
 				lspconfig[server].setup(config)
 			end
-
-			local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
-			for type, icon in pairs(signs) do
-				local hl = "DiagnosticSign" .. type
-				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-			end
-
-			vim.diagnostic.config({
-				float = {
-					border = "single",
-				},
-				virtual_text = {
-					prefix = "●",
-				},
-			})
 		end,
 	},
 }

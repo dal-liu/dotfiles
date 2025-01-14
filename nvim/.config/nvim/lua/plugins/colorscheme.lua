@@ -15,8 +15,12 @@ return {
 						BlinkCmpLabelDeprecated = { fg = colors.comment },
 						BlinkCmpLabelMatch = { fg = colors.cyan },
 						FloatBorder = { fg = colors.comment },
+						FzfLuaBorder = { fg = colors.comment },
+						FzfLuaCursor = { fg = colors.bg, bg = colors.fg },
+						FzfLuaPreviewBorder = { fg = colors.comment },
+						FzfLuaPreviewTitle = { fg = colors.cyan },
+						FzfLuaTitle = { fg = colors.cyan },
 						PmenuSel = { bg = colors.selection },
-						TelescopeSelection = { bg = colors.selection },
 					}
 				end,
 			})
