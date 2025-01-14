@@ -38,20 +38,24 @@ return {
 		config = function()
 			require("fzf-lua").setup({
 				fzf_colors = true,
+				fzf_opts = {
+					["--no-scrollbar"] = true,
+				},
 				keymap = {
 					builtin = {
+						true,
 						["<C-d>"] = "preview-page-down",
 						["<C-u>"] = "preview-page-up",
 					},
 					fzf = {
-						["ctrl-b"] = "half-page-up",
+						true,
 						["ctrl-d"] = "preview-page-down",
-						["ctrl-f"] = "half-page-down",
 						["ctrl-u"] = "preview-page-up",
 					},
 				},
 				winopts = {
 					preview = {
+						scrollbar = false,
 						winopts = {
 							number = false,
 						},
