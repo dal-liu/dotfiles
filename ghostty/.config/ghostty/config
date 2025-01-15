@@ -1,0 +1,14 @@
+font-size = 16
+font-thicken
+
+adjust-cell-width = -1
+adjust-cell-height = 4
+
+theme = dracula
+
+shell-integration-features = no-cursor
+cursor-style-blink = false
+
+mouse-hide-while-typing = true
+
+unfocused-split-opacity = 1
