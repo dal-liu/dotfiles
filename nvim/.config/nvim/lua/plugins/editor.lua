@@ -36,7 +36,6 @@ return {
       end
 
       local fzf = require("fzf-lua")
-      map("<leader>/", fzf.grep_curbuf, "Search in buffer")
       map("<leader>gc", fzf.git_commits, "Search git commits")
       map("<leader>gf", fzf.git_files, "Search git files")
       map("<leader>gs", fzf.git_status, "Search git status")
