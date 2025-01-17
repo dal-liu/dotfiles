@@ -1,35 +1,4 @@
 return {
-	-- detect tabstop and shiftwidth
-	"tpope/vim-sleuth",
-
-	-- github copilot
-	{
-		"github/copilot.vim",
-		cond = not vim.g.vscode,
-		init = function()
-			vim.g.copilot_no_tab_map = true
-		end,
-		config = function()
-			vim.keymap.set("i", "<C-f>", 'copilot#Accept("\\<CR>")', {
-				expr = true,
-				replace_keycodes = false,
-			})
-		end,
-	},
-
-	-- add/change/delete delimiter pairs
-	{
-		"kylechui/nvim-surround",
-		version = "*",
-		event = "VeryLazy",
-		config = function()
-			require("nvim-surround").setup()
-		end,
-	},
-
-	-- "gc" to comment visual regions/lines
-	{ "numToStr/Comment.nvim", opts = {} },
-
 	-- completion plugin
 	{
 		"saghen/blink.cmp",
@@ -40,22 +9,16 @@ return {
 			completion = {
 				documentation = {
 					auto_show = true,
-					window = {
-						winhighlight = "Normal:Pmenu,FloatBorder:Pmenu",
-					},
+					auto_show_delay_ms = 500,
 				},
 			},
 			keymap = {
-				preset = "none",
-				["<C-d>"] = { "scroll_documentation_down" },
-				["<C-e>"] = { "cancel" },
-				["<C-h>"] = { "snippet_backward" },
-				["<C-l>"] = { "snippet_forward" },
-				["<C-n>"] = { "select_next", "fallback" },
-				["<C-p>"] = { "select_prev", "fallback" },
-				["<C-u>"] = { "scroll_documentation_up" },
-				["<C-Space>"] = { "show" },
+				preset = "default",
 				["<Tab>"] = { "accept", "fallback" },
+				["<C-u>"] = { "scroll_documentation_up" },
+				["<C-d>"] = { "scroll_documentation_down" },
+				["<C-l>"] = { "snippet_forward" },
+				["<C-h>"] = { "snippet_backward" },
 			},
 			sources = {
 				default = { "lazydev", "lsp", "path", "snippets", "buffer" },
@@ -71,6 +34,24 @@ return {
 		opts_extend = { "sources.default" },
 	},
 
+	-- "gc" to comment visual regions/lines
+	{ "numToStr/Comment.nvim", opts = {} },
+
+	-- github copilot
+	{
+		"github/copilot.vim",
+		cond = not vim.g.vscode,
+		init = function()
+			vim.g.copilot_no_tab_map = true
+		end,
+		config = function()
+			vim.keymap.set("i", "<C-f>", 'copilot#Accept("\\<CR>")', {
+				expr = true,
+				replace_keycodes = false,
+			})
+		end,
+	},
+	--
 	-- automatically close pairs
 	{
 		"windwp/nvim-autopairs",
@@ -79,5 +60,15 @@ return {
 		opts = {
 			disable_filetype = { "tex" },
 		},
+	},
+
+	-- add/change/delete delimiter pairs
+	{
+		"kylechui/nvim-surround",
+		version = "*",
+		event = "VeryLazy",
+		config = function()
+			require("nvim-surround").setup()
+		end,
 	},
 }

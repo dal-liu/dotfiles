@@ -1,7 +1,4 @@
 return {
-	-- automatically add "end" in ruby, lua, etc.
-	"RRethy/nvim-treesitter-endwise",
-
 	-- treesitter configuration
 	{
 		"nvim-treesitter/nvim-treesitter",
@@ -27,6 +24,9 @@ return {
 			})
 		end,
 	},
+
+	-- automatically add "end" in ruby, lua, etc.
+	"RRethy/nvim-treesitter-endwise",
 
 	-- auto close and rename html tags
 	{

@@ -1,36 +1,4 @@
 return {
-	-- highlight todos
-	{
-		"folke/todo-comments.nvim",
-		event = "VimEnter",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = {},
-	},
-
-	-- show pending keybinds
-	{
-		"folke/which-key.nvim",
-		event = "VeryLazy",
-		dependencies = {
-			"echasnovski/mini.icons",
-			"nvim-tree/nvim-web-devicons",
-		},
-		config = function()
-			require("which-key").setup({
-				preset = "modern",
-			})
-			require("which-key").add({
-				{ "<leader>d", group = "Document" },
-				{ "<leader>h", group = "Git hunk", mode = { "n", "v" } },
-				{ "<leader>l", group = "LaTeX" },
-				{ "<leader>r", group = "Rename" },
-				{ "<leader>s", group = "Search" },
-				{ "<leader>t", group = "Toggle" },
-				{ "<leader>w", group = "Workspace" },
-			})
-		end,
-	},
-
 	-- fuzzy finder
 	{
 		"ibhagwan/fzf-lua",
@@ -63,17 +31,27 @@ return {
 				},
 			})
 
-			local map = function(keys, func, desc)
-				vim.keymap.set("n", keys, func, { desc = desc })
+			local function map(keys, func, desc, mode)
+				mode = mode or "n"
+				vim.keymap.set(mode, keys, func, { desc = desc })
 			end
 
 			local fzf = require("fzf-lua")
-			map("<leader>sf", fzf.files, "Search files")
+			map("<leader>fb", fzf.buffers, "Find buffers")
+			map("<leader>ff", fzf.files, "Find files")
+			map("<leader>fg", fzf.git_files, "Find git files")
+			map("<leader>fr", fzf.oldfiles, "Find recent files")
+			map("<leader>gc", fzf.git_commits, "Git commits")
+			map("<leader>gs", fzf.git_status, "Git status")
+			map("<leader>sb", fzf.grep_curbuf, "Search buffer")
+			map("<leader>sd", fzf.diagnostics_document, "Search document diagnostics")
 			map("<leader>sg", fzf.live_grep, "Search by grep")
+			map("<leader>sl", fzf.loclist, "Search location list")
+			map("<leader>sq", fzf.quickfix, "Search quickfix list")
 			map("<leader>sr", fzf.resume, "Search resume")
 			map("<leader>sw", fzf.grep_cword, "Search current word")
-			map("<leader>s.", fzf.oldfiles, "Search old files")
-			map("<leader><leader>", fzf.buffers, "Find existing buffers")
+			map("<leader>sw", fzf.grep_visual, "Search visual", "v")
+			map("<leader>sD", fzf.diagnostics_workspace, "Search workspace diagnostics")
 		end,
 	},
 
@@ -139,12 +117,12 @@ return {
 				map("n", "<leader>hb", function()
 					gitsigns.blame_line({ full = true })
 				end, { desc = "Blame line" })
-				map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "Git toggle blame" })
-				map("n", "<leader>hd", gitsigns.diffthis, { desc = "Diff against index" })
+				map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "Toggle blame" })
+				map("n", "<leader>hd", gitsigns.diffthis, { desc = "Diff this" })
 				map("n", "<leader>hD", function()
 					gitsigns.diffthis("~")
-				end, { desc = "Diff against last commit" })
-				map("n", "<leader>td", gitsigns.toggle_deleted, { desc = "Git toggle deleted" })
+				end, { desc = "Diff this ~" })
+				map("n", "<leader>td", gitsigns.toggle_deleted, { desc = "Toggle deleted" })
 			end,
 		},
 	},
@@ -164,7 +142,38 @@ return {
 					width = 30,
 				},
 			})
-			vim.keymap.set("n", "<leader>tn", ":Neotree toggle<CR>", { desc = "Toggle neo-tree" })
+		end,
+	},
+
+	-- highlight todos
+	{
+		"folke/todo-comments.nvim",
+		event = "VimEnter",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {},
+	},
+
+	-- show pending keybinds
+	{
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		dependencies = {
+			"echasnovski/mini.icons",
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			require("which-key").setup({
+				preset = "modern",
+			})
+			require("which-key").add({
+				{ "<leader>c", group = "Code" },
+				{ "<leader>f", group = "Find" },
+				{ "<leader>g", group = "Git" },
+				{ "<leader>h", group = "Git hunk" },
+				{ "<leader>s", group = "Search" },
+				{ "<leader>t", group = "Toggle" },
+				{ "<localleader>l", group = "LaTeX" },
+			})
 		end,
 	},
 }

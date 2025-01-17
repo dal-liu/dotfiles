@@ -1,8 +1,9 @@
 font-size = 16
+font-feature = -calt
 font-thicken
 
 adjust-cell-width = -1
-adjust-cell-height = 4
+adjust-cell-height = 10%
 
 theme = dracula
 
@@ -10,5 +11,3 @@ shell-integration-features = no-cursor
 cursor-style-blink = false
 
 mouse-hide-while-typing = true
-
-unfocused-split-opacity = 1

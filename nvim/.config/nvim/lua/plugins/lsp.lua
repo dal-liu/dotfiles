@@ -47,34 +47,46 @@ return {
 		},
 		config = function(_, opts)
 			vim.api.nvim_create_autocmd("LspAttach", {
-				group = vim.api.nvim_create_augroup("lsp-attach-set-keymaps", { clear = true }),
+				group = vim.api.nvim_create_augroup("lsp_attach", { clear = true }),
 				callback = function(event)
-					local map = function(keys, func, desc)
-						vim.keymap.set("n", keys, func, { buffer = event.buf, desc = desc })
+					local function map(keys, func, desc, mode)
+						mode = mode or "n"
+						vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = desc })
 					end
 
 					local fzf = require("fzf-lua")
 					map("gd", fzf.lsp_definitions, "Go to definition")
 					map("gr", fzf.lsp_references, "Go to references")
+					map("gy", fzf.lsp_typedefs, "Go to type definition")
 					map("gD", fzf.lsp_declarations, "Go to declaration")
 					map("gI", fzf.lsp_implementations, "Go to implementation")
-					map("<leader>ds", fzf.lsp_document_symbols, "Document symbols")
-					map("<leader>rn", vim.lsp.buf.rename, "Rename")
-					map("<leader>ws", fzf.lsp_live_workspace_symbols, "Workspace symbols")
-					map("<leader>D", fzf.lsp_typedefs, "Type definition")
+					map("gK", vim.lsp.buf.signature_help, "Signature help")
 					map("K", vim.lsp.buf.hover, "Hover documentation")
+					map("<C-k>", vim.lsp.buf.signature_help, "Signature help", "i")
+					map("<leader>ca", fzf.lsp_code_actions, "Code action", { "n", "v" })
+					map("<leader>cr", vim.lsp.buf.rename, "Rename")
+					map("<leader>ss", fzf.lsp_document_symbols, "Search document symbols")
+					map("<leader>sS", fzf.lsp_live_workspace_symbols, "Search workspace symbols")
+
+					local client = vim.lsp.get_client_by_id(event.data.client_id)
+					if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+						vim.lsp.inlay_hint.enable()
+						map("<leader>th", function()
+							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+						end, "Toggle inlay hints")
+					end
 				end,
 			})
 
 			local signs = { ERROR = "󰅚 ", WARN = "󰀪 ", INFO = "󰋽 ", HINT = "󰌶 " }
-			local diagnostic_signs = {}
-			for type, icon in pairs(signs) do
-				diagnostic_signs[vim.diagnostic.severity[type]] = icon
-			end
 			vim.diagnostic.config({
 				float = { border = "single" },
-				signs = { text = diagnostic_signs },
-				virtual_text = { prefix = "●" },
+				signs = false,
+				virtual_text = {
+					prefix = function(diagnostic)
+						return signs[vim.diagnostic.severity[diagnostic.severity]]
+					end,
+				},
 			})
 
 			require("mason").setup()
