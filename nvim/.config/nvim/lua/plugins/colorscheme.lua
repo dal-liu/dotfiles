@@ -10,6 +10,8 @@ return {
         overrides = function(colors)
           return {
             FloatBorder = { fg = colors.comment },
+            CursorLine = { bg = colors.visual },
+            Visual = { bg = colors.selection },
             BlinkCmpMenuSelection = { bg = colors.selection },
             BlinkCmpScrollBarGutter = { bg = colors.menu },
             BlinkCmpLabel = { fg = colors.fg },

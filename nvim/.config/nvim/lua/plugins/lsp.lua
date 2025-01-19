@@ -43,6 +43,7 @@ return {
         rust_analyzer = {},
         texlab = {},
         ts_ls = {},
+        zls = {},
       },
     },
     config = function(_, opts)
@@ -61,7 +62,6 @@ return {
           map("gD", fzf.lsp_declarations, "Go to declaration")
           map("gI", fzf.lsp_implementations, "Go to implementation")
           map("gK", vim.lsp.buf.signature_help, "Signature help")
-          map("K", vim.lsp.buf.hover, "Hover documentation")
           map("<C-k>", vim.lsp.buf.signature_help, "Signature help", "i")
           map("<leader>ca", fzf.lsp_code_actions, "Code action", { "n", "v" })
           map("<leader>rn", vim.lsp.buf.rename, "Rename")

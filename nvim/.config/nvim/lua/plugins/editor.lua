@@ -135,7 +135,9 @@ return {
     "folke/todo-comments.nvim",
     event = "VimEnter",
     dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {},
+    opts = {
+      signs = false,
+    },
   },
 
   -- show pending keybinds
