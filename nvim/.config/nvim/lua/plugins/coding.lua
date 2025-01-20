@@ -3,7 +3,18 @@ return {
   {
     "saghen/blink.cmp",
     cond = not vim.g.vscode,
-    dependencies = "rafamadriz/friendly-snippets",
+    dependencies = {
+      {
+        "L3MON4D3/LuaSnip",
+        version = "v2.*",
+        dependencies = {
+          "rafamadriz/friendly-snippets",
+          config = function()
+            require("luasnip.loaders.from_vscode").lazy_load()
+          end,
+        },
+      },
+    },
     version = "*",
     opts = {
       completion = {
@@ -13,14 +24,18 @@ return {
         },
       },
       keymap = {
-        preset = "default",
-        ["<Tab>"] = { "accept", "fallback" },
-        ["<C-u>"] = { "scroll_documentation_up" },
+        preset = "none",
         ["<C-d>"] = { "scroll_documentation_down" },
-        ["<C-f>"] = {},
-        ["<C-l>"] = { "snippet_forward" },
+        ["<C-e>"] = { "cancel" },
         ["<C-h>"] = { "snippet_backward" },
+        ["<C-l>"] = { "snippet_forward" },
+        ["<C-n>"] = { "select_next" },
+        ["<C-p>"] = { "select_prev" },
+        ["<C-u>"] = { "scroll_documentation_up" },
+        ["<C-Space>"] = { "show" },
+        ["<Tab>"] = { "accept", "fallback" },
       },
+      snippets = { preset = "luasnip" },
       sources = {
         default = { "lazydev", "lsp", "path", "snippets", "buffer" },
         providers = {

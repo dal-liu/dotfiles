@@ -3,33 +3,34 @@ return {
   {
     "ibhagwan/fzf-lua",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = function()
-      require("fzf-lua").setup({
-        fzf_colors = true,
-        fzf_opts = {
-          ["--no-scrollbar"] = true,
+    opts = {
+      fzf_colors = true,
+      fzf_opts = {
+        ["--no-scrollbar"] = true,
+      },
+      keymap = {
+        builtin = {
+          true,
+          ["<C-d>"] = "preview-page-down",
+          ["<C-u>"] = "preview-page-up",
         },
-        keymap = {
-          builtin = {
-            true,
-            ["<C-d>"] = "preview-page-down",
-            ["<C-u>"] = "preview-page-up",
-          },
-          fzf = {
-            true,
-            ["ctrl-d"] = "preview-page-down",
-            ["ctrl-u"] = "preview-page-up",
-          },
+        fzf = {
+          true,
+          ["ctrl-d"] = "preview-page-down",
+          ["ctrl-u"] = "preview-page-up",
         },
-        winopts = {
-          preview = {
-            scrollbar = false,
-            winopts = {
-              number = false,
-            },
+      },
+      winopts = {
+        preview = {
+          scrollbar = false,
+          winopts = {
+            number = false,
           },
         },
-      })
+      },
+    },
+    config = function(_, opts)
+      require("fzf-lua").setup(opts)
 
       local function map(keys, func, desc)
         vim.keymap.set("n", keys, func, { desc = desc })
@@ -39,15 +40,16 @@ return {
       map("<leader>gc", fzf.git_commits, "Search git commits")
       map("<leader>gf", fzf.git_files, "Search git files")
       map("<leader>gs", fzf.git_status, "Search git status")
-      map("<leader>sb", fzf.buffers, "Search buffers")
       map("<leader>sd", fzf.diagnostics_document, "Search diagnostics")
       map("<leader>sf", fzf.files, "Search files")
       map("<leader>sg", fzf.live_grep, "Search by grep")
-      map("<leader>sh", fzf.helptags, "Search help tags")
+      map("<leader>sh", fzf.helptags, "Search helptags")
       map("<leader>sk", fzf.keymaps, "Search keymaps")
-      map("<leader>so", fzf.oldfiles, "Search old files")
+      map("<leader>so", fzf.oldfiles, "Search oldfiles")
       map("<leader>sr", fzf.resume, "Search resume")
       map("<leader>sw", fzf.grep_cword, "Search current word")
+      map("<leader>/", fzf.grep_curbuf, "Search in current buffer")
+      map("<leader><leader>", fzf.buffers, "Find existing buffers")
     end,
   },
 
@@ -70,6 +72,9 @@ return {
         topdelete = { text = "" },
         changedelete = { text = "▎" },
         untracked = { text = "▎" },
+      },
+      preview_config = {
+        border = "rounded",
       },
       on_attach = function(bufnr)
         local gitsigns = require("gitsigns")
@@ -148,10 +153,12 @@ return {
       "echasnovski/mini.icons",
       "nvim-tree/nvim-web-devicons",
     },
-    config = function()
-      require("which-key").setup({
-        preset = "modern",
-      })
+    opts = {
+      preset = "modern",
+    },
+    config = function(_, opts)
+      require("which-key").setup(opts)
+
       require("which-key").add({
         { "<leader>c", group = "Code" },
         { "<leader>d", group = "Document" },
