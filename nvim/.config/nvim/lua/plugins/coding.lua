@@ -25,14 +25,14 @@ return {
       },
       keymap = {
         preset = "none",
-        ["<C-d>"] = { "scroll_documentation_down" },
-        ["<C-e>"] = { "cancel" },
-        ["<C-h>"] = { "snippet_backward" },
-        ["<C-l>"] = { "snippet_forward" },
-        ["<C-n>"] = { "select_next" },
-        ["<C-p>"] = { "select_prev" },
-        ["<C-u>"] = { "scroll_documentation_up" },
-        ["<C-Space>"] = { "show" },
+        ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+        ["<C-e>"] = { "cancel", "fallback" },
+        ["<C-h>"] = { "snippet_backward", "fallback" },
+        ["<C-l>"] = { "snippet_forward", "fallback" },
+        ["<C-n>"] = { "select_next", "fallback", "fallback" },
+        ["<C-p>"] = { "select_prev", "fallback", "fallback" },
+        ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-Space>"] = { "show", "fallback" },
         ["<Tab>"] = { "accept", "fallback" },
       },
       snippets = { preset = "luasnip" },
@@ -43,6 +43,12 @@ return {
             name = "LazyDev",
             module = "lazydev.integrations.blink",
             score_offset = 100,
+          },
+          lsp = {
+            score_offset = 2,
+          },
+          snippets = {
+            score_offset = 1,
           },
         },
       },
@@ -67,10 +73,11 @@ return {
       })
     end,
   },
-  --
+
   -- automatically close pairs
   {
     "windwp/nvim-autopairs",
+    enabled = false,
     event = "InsertEnter",
     config = true,
     opts = {
@@ -83,8 +90,19 @@ return {
     "kylechui/nvim-surround",
     version = "*",
     event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup()
-    end,
+    config = true,
+  },
+
+  -- automatically add "end" in ruby, lua, etc.
+  {
+    "RRethy/nvim-treesitter-endwise",
+    enabled = false,
+  },
+
+  -- auto close and rename html tags
+  {
+    "windwp/nvim-ts-autotag",
+    enabled = false,
+    config = true,
   },
 }

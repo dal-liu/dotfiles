@@ -133,6 +133,10 @@ return {
     "stevearc/oil.nvim",
     opts = {},
     dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    config = function(_, opts)
+      vim.keymap.set("n", "<leader>e", ":Oil --float<CR>", { desc = "Open file explorer" })
+      require("oil").setup(opts)
+    end,
   },
 
   -- highlight todos
@@ -158,7 +162,6 @@ return {
     },
     config = function(_, opts)
       require("which-key").setup(opts)
-
       require("which-key").add({
         { "<leader>c", group = "Code" },
         { "<leader>d", group = "Document" },

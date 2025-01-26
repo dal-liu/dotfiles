@@ -40,3 +40,7 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+export PATH="/opt/homebrew/Cellar/llvm@14/14.0.6/bin:$PATH"
+export CC=clang
+export CXX=clang++
