@@ -28,9 +28,11 @@ return {
         ["<C-d>"] = { "scroll_documentation_down", "fallback" },
         ["<C-e>"] = { "cancel", "fallback" },
         ["<C-h>"] = { "snippet_backward", "fallback" },
+        ["<C-j>"] = { "select_next", "fallback" },
+        ["<C-k>"] = { "select_prev", "fallback" },
         ["<C-l>"] = { "snippet_forward", "fallback" },
-        ["<C-n>"] = { "select_next", "fallback", "fallback" },
-        ["<C-p>"] = { "select_prev", "fallback", "fallback" },
+        ["<C-n>"] = { "select_next", "fallback" },
+        ["<C-p>"] = { "select_prev", "fallback" },
         ["<C-u>"] = { "scroll_documentation_up", "fallback" },
         ["<C-Space>"] = { "show", "fallback" },
         ["<Tab>"] = { "accept", "fallback" },
@@ -43,12 +45,6 @@ return {
             name = "LazyDev",
             module = "lazydev.integrations.blink",
             score_offset = 100,
-          },
-          lsp = {
-            score_offset = 2,
-          },
-          snippets = {
-            score_offset = 1,
           },
         },
       },
@@ -67,22 +63,11 @@ return {
       vim.g.copilot_no_tab_map = true
     end,
     config = function()
-      vim.keymap.set("i", "<C-f>", 'copilot#Accept("\\<CR>")', {
+      vim.keymap.set("i", "<S-Tab>", 'copilot#Accept("\\<CR>")', {
         expr = true,
         replace_keycodes = false,
       })
     end,
-  },
-
-  -- automatically close pairs
-  {
-    "windwp/nvim-autopairs",
-    enabled = false,
-    event = "InsertEnter",
-    config = true,
-    opts = {
-      disable_filetype = { "tex" },
-    },
   },
 
   -- add/change/delete delimiter pairs
@@ -90,19 +75,6 @@ return {
     "kylechui/nvim-surround",
     version = "*",
     event = "VeryLazy",
-    config = true,
-  },
-
-  -- automatically add "end" in ruby, lua, etc.
-  {
-    "RRethy/nvim-treesitter-endwise",
-    enabled = false,
-  },
-
-  -- auto close and rename html tags
-  {
-    "windwp/nvim-ts-autotag",
-    enabled = false,
     config = true,
   },
 }

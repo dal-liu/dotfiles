@@ -10,17 +10,18 @@ return {
       },
       keymap = {
         builtin = {
-          true,
           ["<C-d>"] = "preview-page-down",
           ["<C-u>"] = "preview-page-up",
         },
         fzf = {
-          true,
+          ["ctrl-b"] = "half-page-up",
           ["ctrl-d"] = "preview-page-down",
+          ["ctrl-f"] = "half-page-down",
           ["ctrl-u"] = "preview-page-up",
         },
       },
       winopts = {
+        backdrop = 100,
         preview = {
           scrollbar = false,
           winopts = {
@@ -45,11 +46,15 @@ return {
       map("<leader>sg", fzf.live_grep, "Search by grep")
       map("<leader>sh", fzf.helptags, "Search helptags")
       map("<leader>sk", fzf.keymaps, "Search keymaps")
-      map("<leader>so", fzf.oldfiles, "Search oldfiles")
       map("<leader>sr", fzf.resume, "Search resume")
+      map("<leader>ss", fzf.builtin, "Search select fzf-lua")
       map("<leader>sw", fzf.grep_cword, "Search current word")
-      map("<leader>/", fzf.grep_curbuf, "Search in current buffer")
+      map("<leader>s.", fzf.oldfiles, "Search recent files")
       map("<leader><leader>", fzf.buffers, "Find existing buffers")
+      map("<leader>/", fzf.grep_curbuf, "Search in current buffer")
+      map("<leader>sn", function()
+        fzf.files({ cwd = vim.fn.stdpath("config") })
+      end, "Search Neovim files")
     end,
   },
 

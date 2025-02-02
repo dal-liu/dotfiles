@@ -16,6 +16,7 @@ return {
           BlinkCmpLabel = { fg = colors.fg },
           BlinkCmpLabelDeprecated = { fg = colors.comment },
           BlinkCmpLabelMatch = { fg = colors.cyan },
+          BlinkCmpLabelDetail = { fg = colors.fg },
           BlinkCmpKind = {},
           BlinkCmpDoc = { bg = colors.menu },
           BlinkCmpDocBorder = { bg = colors.menu },

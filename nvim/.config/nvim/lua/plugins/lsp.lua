@@ -20,6 +20,7 @@ return {
     },
     opts = {
       servers = {
+        basedpyright = {},
         clangd = {
           capabilities = {
             offsetEncoding = { "utf-16" },
@@ -39,7 +40,6 @@ return {
             },
           },
         },
-        pyright = {},
         racket_langserver = {},
         rust_analyzer = {},
         texlab = {},
