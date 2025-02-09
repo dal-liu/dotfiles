@@ -139,7 +139,7 @@ return {
     opts = {},
     dependencies = { { "echasnovski/mini.icons", opts = {} } },
     config = function(_, opts)
-      vim.keymap.set("n", "<leader>e", ":Oil --float<CR>", { desc = "Open file explorer" })
+      vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open file explorer" })
       require("oil").setup(opts)
     end,
   },

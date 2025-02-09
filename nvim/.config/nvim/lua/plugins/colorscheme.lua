@@ -1,4 +1,5 @@
 return {
+  -- Dracula
   {
     "Mofiqul/dracula.nvim",
     priority = 1000,
