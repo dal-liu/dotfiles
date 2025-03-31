@@ -14,7 +14,7 @@ $ cd ~/.dotfiles
 To set up every config, run:
 
 ```bash
-$ stow *
+$ stow */
 ```
 
 To set up a config for an individual program (e.g. nvim):
