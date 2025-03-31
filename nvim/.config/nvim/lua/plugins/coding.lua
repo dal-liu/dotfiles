@@ -31,8 +31,6 @@ return {
         ["<C-j>"] = { "select_next", "fallback" },
         ["<C-k>"] = { "select_prev", "fallback" },
         ["<C-l>"] = { "snippet_forward", "fallback" },
-        ["<C-n>"] = { "select_next", "fallback" },
-        ["<C-p>"] = { "select_prev", "fallback" },
         ["<C-u>"] = { "scroll_documentation_up", "fallback" },
         ["<C-Space>"] = { "show", "fallback" },
         ["<Tab>"] = { "accept", "fallback" },
@@ -54,21 +52,6 @@ return {
 
   -- "gc" to comment visual regions/lines
   { "numToStr/Comment.nvim", opts = {} },
-
-  -- github copilot
-  {
-    "github/copilot.vim",
-    cond = not vim.g.vscode,
-    init = function()
-      vim.g.copilot_no_tab_map = true
-    end,
-    config = function()
-      vim.keymap.set("i", "<S-Tab>", 'copilot#Accept("\\<CR>")', {
-        expr = true,
-        replace_keycodes = false,
-      })
-    end,
-  },
 
   -- add/change/delete delimiter pairs
   {

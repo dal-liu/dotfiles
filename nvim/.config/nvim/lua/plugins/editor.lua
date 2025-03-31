@@ -5,9 +5,6 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
       fzf_colors = true,
-      fzf_opts = {
-        ["--no-scrollbar"] = true,
-      },
       keymap = {
         builtin = {
           ["<C-d>"] = "preview-page-down",
@@ -38,9 +35,8 @@ return {
       end
 
       local fzf = require("fzf-lua")
-      map("<leader>gc", fzf.git_commits, "Search git commits")
-      map("<leader>gf", fzf.git_files, "Search git files")
       map("<leader>gs", fzf.git_status, "Search git status")
+      map("<leader>gS", fzf.git_stash, "Search git stash")
       map("<leader>sd", fzf.diagnostics_document, "Search diagnostics")
       map("<leader>sf", fzf.files, "Search files")
       map("<leader>sg", fzf.live_grep, "Search by grep")
@@ -110,25 +106,41 @@ return {
         -- Actions
         map("n", "<leader>hs", gitsigns.stage_hunk, { desc = "Stage hunk" })
         map("n", "<leader>hr", gitsigns.reset_hunk, { desc = "Reset hunk" })
+
         map("v", "<leader>hs", function()
           gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
         end, { desc = "Stage hunk" })
+
         map("v", "<leader>hr", function()
           gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
         end, { desc = "Reset hunk" })
+
         map("n", "<leader>hS", gitsigns.stage_buffer, { desc = "Stage buffer" })
-        map("n", "<leader>hu", gitsigns.undo_stage_hunk, { desc = "Undo stage hunk" })
         map("n", "<leader>hR", gitsigns.reset_buffer, { desc = "Reset buffer" })
         map("n", "<leader>hp", gitsigns.preview_hunk, { desc = "Preview hunk" })
+        map("n", "<leader>hi", gitsigns.preview_hunk_inline, { desc = "Preview hunk inline" })
+
         map("n", "<leader>hb", function()
           gitsigns.blame_line({ full = true })
         end, { desc = "Blame line" })
-        map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "Toggle blame" })
+
         map("n", "<leader>hd", gitsigns.diffthis, { desc = "Diff this" })
         map("n", "<leader>hD", function()
           gitsigns.diffthis("~")
         end, { desc = "Diff this ~" })
+
+        map("n", "<leader>hQ", function()
+          gitsigns.setqflist("all")
+        end, { desc = "Set quickfix list all" })
+        map("n", "<leader>hq", gitsigns.setqflist, { desc = "Set quickfix list" })
+
+        -- Toggles
+        map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "Toggle blame" })
         map("n", "<leader>td", gitsigns.toggle_deleted, { desc = "Toggle deleted" })
+        map("n", "<leader>tw", gitsigns.toggle_word_diff, { desc = "Toggle word diff" })
+
+        -- Text object
+        map({ "o", "x" }, "ih", gitsigns.select_hunk, { desc = "Select hunk" })
       end,
     },
   },
@@ -139,7 +151,7 @@ return {
     opts = {},
     dependencies = { { "echasnovski/mini.icons", opts = {} } },
     config = function(_, opts)
-      vim.keymap.set("n", "<leader>e", ":Oil<CR>", { desc = "Open file explorer" })
+      vim.keymap.set("n", "<leader>e", ":Oil --float<CR>", { desc = "Open file explorer" })
       require("oil").setup(opts)
     end,
   },
@@ -168,9 +180,9 @@ return {
     config = function(_, opts)
       require("which-key").setup(opts)
       require("which-key").add({
+        { "<leader>b", group = "Buffer" },
         { "<leader>c", group = "Code" },
         { "<leader>d", group = "Document" },
-        { "<leader>g", group = "Git" },
         { "<leader>h", group = "Hunk" },
         { "<leader>r", group = "Rename" },
         { "<leader>s", group = "Search" },

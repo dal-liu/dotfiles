@@ -18,7 +18,7 @@ return {
           BlinkCmpLabelDeprecated = { fg = colors.comment },
           BlinkCmpLabelMatch = { fg = colors.cyan },
           BlinkCmpLabelDetail = { fg = colors.fg },
-          BlinkCmpKind = {},
+          BlinkCmpKind = { fg = colors.white },
           BlinkCmpDoc = { bg = colors.menu },
           BlinkCmpDocBorder = { bg = colors.menu },
           BlinkCmpDocSeparator = { bg = colors.menu },
