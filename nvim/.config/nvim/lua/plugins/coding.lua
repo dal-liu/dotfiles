@@ -15,14 +15,16 @@ return {
         },
       },
     },
-    version = "*",
+    version = "1.*",
     opts = {
+      appearance = { nerd_font_variant = "mono" },
       completion = {
         documentation = {
           auto_show = true,
           auto_show_delay_ms = 500,
         },
       },
+      fuzzy = { implementation = "prefer_rust_with_warning" },
       keymap = {
         preset = "none",
         ["<C-d>"] = { "scroll_documentation_down", "fallback" },
@@ -48,6 +50,19 @@ return {
       },
     },
     opts_extend = { "sources.default" },
+  },
+
+  -- GitHub Copilot
+  {
+    "github/copilot.vim",
+    cond = not vim.g.vscode,
+    init = function()
+      vim.keymap.set("i", "<S-Tab>", 'copilot#Accept("\\<CR>")', {
+        expr = true,
+        replace_keycodes = false,
+      })
+      vim.g.copilot_no_tab_map = true
+    end,
   },
 
   -- "gc" to comment visual regions/lines

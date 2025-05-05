@@ -1,57 +1,92 @@
 return {
   -- fuzzy finder
   {
-    "ibhagwan/fzf-lua",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
     opts = {
-      fzf_colors = true,
-      keymap = {
-        builtin = {
-          ["<C-d>"] = "preview-page-down",
-          ["<C-u>"] = "preview-page-up",
-        },
-        fzf = {
-          ["ctrl-b"] = "half-page-up",
-          ["ctrl-d"] = "preview-page-down",
-          ["ctrl-f"] = "half-page-down",
-          ["ctrl-u"] = "preview-page-up",
-        },
+      picker = { enabled = true },
+    },
+    keys = {
+      {
+        "<leader><leader>",
+        function()
+          Snacks.picker.buffers()
+        end,
+        desc = "Find existing buffers",
       },
-      winopts = {
-        backdrop = 100,
-        preview = {
-          scrollbar = false,
-          winopts = {
-            number = false,
-          },
-        },
+      {
+        "<leader>sd",
+        function()
+          Snacks.picker.diagnostics()
+        end,
+        desc = "Search diagnostics",
+      },
+      {
+        "<leader>sf",
+        function()
+          Snacks.picker.files()
+        end,
+        desc = "Search files",
+      },
+      {
+        "<leader>sg",
+        function()
+          Snacks.picker.grep()
+        end,
+        desc = "Search by grep",
+      },
+      {
+        "<leader>sh",
+        function()
+          Snacks.picker.help()
+        end,
+        desc = "Search helptags",
+      },
+      {
+        "<leader>sk",
+        function()
+          Snacks.picker.keymaps()
+        end,
+        desc = "Search keymaps",
+      },
+      {
+        "<leader>sn",
+        function()
+          Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
+        end,
+        desc = "Search Neovim files",
+      },
+      {
+        "<leader>sr",
+        function()
+          Snacks.picker.resume()
+        end,
+        desc = "Search resume",
+      },
+      {
+        "<leader>sw",
+        function()
+          Snacks.picker.grep_word()
+        end,
+        desc = "Search current word",
+        mode = { "n", "x" },
+      },
+      {
+        "<leader>s.",
+        function()
+          Snacks.picker.recent()
+        end,
+        desc = "Search recent files",
+      },
+      {
+        "<leader>s/",
+        function()
+          Snacks.picker.grep_buffers()
+        end,
+        desc = "Search in open files",
       },
     },
-    config = function(_, opts)
-      require("fzf-lua").setup(opts)
-
-      local function map(keys, func, desc)
-        vim.keymap.set("n", keys, func, { desc = desc })
-      end
-
-      local fzf = require("fzf-lua")
-      map("<leader>gs", fzf.git_status, "Search git status")
-      map("<leader>gS", fzf.git_stash, "Search git stash")
-      map("<leader>sd", fzf.diagnostics_document, "Search diagnostics")
-      map("<leader>sf", fzf.files, "Search files")
-      map("<leader>sg", fzf.live_grep, "Search by grep")
-      map("<leader>sh", fzf.helptags, "Search helptags")
-      map("<leader>sk", fzf.keymaps, "Search keymaps")
-      map("<leader>sr", fzf.resume, "Search resume")
-      map("<leader>ss", fzf.builtin, "Search select fzf-lua")
-      map("<leader>sw", fzf.grep_cword, "Search current word")
-      map("<leader>s.", fzf.oldfiles, "Search recent files")
-      map("<leader><leader>", fzf.buffers, "Find existing buffers")
-      map("<leader>/", fzf.grep_curbuf, "Search in current buffer")
-      map("<leader>sn", function()
-        fzf.files({ cwd = vim.fn.stdpath("config") })
-      end, "Search Neovim files")
-    end,
   },
 
   -- git integration
@@ -180,14 +215,10 @@ return {
     config = function(_, opts)
       require("which-key").setup(opts)
       require("which-key").add({
-        { "<leader>b", group = "Buffer" },
         { "<leader>c", group = "Code" },
-        { "<leader>d", group = "Document" },
         { "<leader>h", group = "Hunk" },
-        { "<leader>r", group = "Rename" },
         { "<leader>s", group = "Search" },
         { "<leader>t", group = "Toggle" },
-        { "<leader>w", group = "Workspace" },
         { "<localleader>l", group = "LaTeX" },
       })
     end,

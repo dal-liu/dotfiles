@@ -22,11 +22,6 @@ return {
           BlinkCmpDoc = { bg = colors.menu },
           BlinkCmpDocBorder = { bg = colors.menu },
           BlinkCmpDocSeparator = { bg = colors.menu },
-          FzfLuaBorder = { fg = colors.comment },
-          FzfLuaCursor = { fg = colors.bg, bg = colors.fg },
-          FzfLuaPreviewBorder = { fg = colors.comment },
-          FzfLuaPreviewTitle = { fg = colors.cyan },
-          FzfLuaTitle = { fg = colors.cyan },
         }
       end,
     },
