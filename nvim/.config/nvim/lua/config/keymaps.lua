@@ -9,6 +9,5 @@ map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window", remap
 map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window", remap = true })
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
-map({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save file" })
 map("v", "<", "<gv")
 map("v", ">", ">gv")

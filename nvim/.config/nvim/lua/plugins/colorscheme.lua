@@ -22,6 +22,7 @@ return {
           BlinkCmpDoc = { bg = colors.menu },
           BlinkCmpDocBorder = { bg = colors.menu },
           BlinkCmpDocSeparator = { bg = colors.menu },
+          SnacksPickerDir = { fg = colors.white },
         }
       end,
     },
