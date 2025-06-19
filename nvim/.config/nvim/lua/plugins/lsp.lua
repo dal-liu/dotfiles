@@ -40,7 +40,7 @@ return {
             },
           },
         },
-        racket_langserver = {},
+        matlab_ls = {},
         rust_analyzer = {},
         texlab = {},
         ts_ls = {},
