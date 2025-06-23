@@ -72,7 +72,7 @@ return {
           map("K", function()
             vim.lsp.buf.hover({ border = "rounded" })
           end, "Hover documentation")
-          map("<C-k>", function()
+          map("<C-s>", function()
             vim.lsp.buf.signature_help({ border = "rounded" })
           end, "Signature help", "i")
           map("<leader>cc", vim.lsp.codelens.run, "Run codelens", { "n", "v" })
