@@ -16,7 +16,6 @@ return {
     cond = not vim.g.vscode,
     dependencies = {
       "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
     },
     opts = {
       servers = {
@@ -84,8 +83,6 @@ return {
       })
 
       require("mason").setup()
-      require("mason-lspconfig").setup()
-
       local lspconfig = require("lspconfig")
       for server, config in pairs(opts.servers) do
         config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
