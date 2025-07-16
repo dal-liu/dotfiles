@@ -10,8 +10,6 @@ return {
       overrides = function(colors)
         return {
           FloatBorder = { fg = colors.comment },
-          CursorLine = { bg = colors.visual },
-          Visual = { bg = colors.selection },
           BlinkCmpMenuSelection = { bg = colors.selection },
           BlinkCmpScrollBarGutter = { bg = colors.menu },
           BlinkCmpLabel = { fg = colors.fg },
@@ -19,6 +17,7 @@ return {
           BlinkCmpLabelMatch = { fg = colors.cyan },
           BlinkCmpLabelDetail = { fg = colors.fg },
           BlinkCmpKind = { fg = colors.white },
+          BlinkCmpKindText = { fg = colors.fg },
           BlinkCmpDoc = { bg = colors.menu },
           BlinkCmpDocBorder = { bg = colors.menu },
           BlinkCmpDocSeparator = { bg = colors.menu },

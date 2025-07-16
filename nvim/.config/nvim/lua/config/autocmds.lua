@@ -34,3 +34,10 @@ vim.api.nvim_create_autocmd("BufReadPost", {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+  group = augroup("disable_hover_highlight"),
+  callback = function()
+    vim.api.nvim_set_hl(0, "LspReferenceTarget", {})
+  end,
+})
