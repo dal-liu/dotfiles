@@ -30,15 +30,7 @@ return {
         eslint = {},
         gopls = {},
         html = {},
-        lua_ls = {
-          settings = {
-            Lua = {
-              completion = {
-                callSnippet = "Replace",
-              },
-            },
-          },
-        },
+        lua_ls = {},
         matlab_ls = {},
         rust_analyzer = {},
         texlab = {},
@@ -79,14 +71,17 @@ return {
           map("<leader>th", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
           end, "Toggle inlay hints")
+
+          vim.lsp.inlay_hint.enable()
         end,
       })
 
       require("mason").setup()
-      local lspconfig = require("lspconfig")
+
       for server, config in pairs(opts.servers) do
         config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-        lspconfig[server].setup(config)
+        vim.lsp.config(server, config)
+        vim.lsp.enable(server)
       end
 
       local signs = { ERROR = "󰅚 ", WARN = "󰀪 ", INFO = "󰋽 ", HINT = "󰌶 " }
