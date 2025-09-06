@@ -86,10 +86,10 @@ return {
         vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
       end
 
-      local dap = require("dap")
       local dapui = require("dapui")
       dapui.setup()
 
+      local dap = require("dap")
       dap.listeners.after.event_initialized["dapui_config"] = dapui.open
       dap.listeners.before.event_terminated["dapui_config"] = dapui.close
       dap.listeners.before.event_exited["dapui_config"] = dapui.close
