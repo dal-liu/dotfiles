@@ -184,11 +184,10 @@ return {
   {
     "stevearc/oil.nvim",
     opts = {},
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
-    config = function(_, opts)
-      vim.keymap.set("n", "<leader>e", ":Oil --float<CR>", { desc = "Open file explorer" })
-      require("oil").setup(opts)
-    end,
+    dependencies = { "echasnovski/mini.icons", opts = {} },
+    keys = {
+      { "<leader>e", ":Oil --float<CR>", desc = "Open file explorer" },
+    },
   },
 
   -- highlight todos
@@ -216,6 +215,7 @@ return {
       require("which-key").setup(opts)
       require("which-key").add({
         { "<leader>c", group = "Code" },
+        { "<leader>d", group = "Debug" },
         { "<leader>h", group = "Hunk" },
         { "<leader>s", group = "Search" },
         { "<leader>t", group = "Toggle" },
