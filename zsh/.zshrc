@@ -21,9 +21,8 @@ alias la="ls -A"
 alias ll="ls -alF"
 alias vim="nvim"
 
-# colors
+# colors from https://github.com/ohmyzsh/ohmyzsh
 export CLICOLOR=1
-# exports below are from https://github.com/ohmyzsh/ohmyzsh
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
 
@@ -32,7 +31,7 @@ zstyle ":completion:*" menu select
 zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
 
 # keybindings
-bindkey -e
+bindkey -v
 bindkey "^[[Z" reverse-menu-complete
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
