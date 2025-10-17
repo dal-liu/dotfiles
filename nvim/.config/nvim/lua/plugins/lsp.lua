@@ -33,6 +33,7 @@ return {
         lua_ls = {},
         matlab_ls = {},
         mlir_lsp_server = {},
+        nixd = {},
         racket_langserver = {},
         rust_analyzer = {},
         tblgen_lsp_server = {},

@@ -26,6 +26,7 @@ return {
         javascriptreact = { "prettier" },
         json = { "prettier" },
         lua = { "stylua" },
+        nix = { "nixfmt" },
         tex = { "latexindent" },
         python = { "isort", "black" },
         typescript = { "prettier" },
