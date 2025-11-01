@@ -9,5 +9,7 @@ map("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window", remap
 map("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window", remap = true })
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+map("n", "<leader>bb", "<cmd>b#<CR>", { desc = "Switch to other buffer" })
+map("n", "<leader>bd", "<cmd>bd<CR>", { desc = "Delete buffer" })
 map("v", "<", "<gv")
 map("v", ">", ">gv")

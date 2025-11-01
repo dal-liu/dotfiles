@@ -29,6 +29,7 @@ return {
         nix = { "nixfmt" },
         tex = { "latexindent" },
         python = { "isort", "black" },
+        rust = { "rustfmt" },
         typescript = { "prettier" },
         typescriptreact = { "prettier" },
       },

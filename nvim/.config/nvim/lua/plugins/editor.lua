@@ -214,6 +214,7 @@ return {
     config = function(_, opts)
       require("which-key").setup(opts)
       require("which-key").add({
+        { "<leader>b", group = "Buffer" },
         { "<leader>c", group = "Code" },
         { "<leader>d", group = "Debug" },
         { "<leader>h", group = "Hunk" },

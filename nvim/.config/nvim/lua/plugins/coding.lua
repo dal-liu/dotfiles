@@ -52,19 +52,6 @@ return {
     opts_extend = { "sources.default" },
   },
 
-  -- GitHub Copilot
-  {
-    "github/copilot.vim",
-    cond = not vim.g.vscode,
-    init = function()
-      vim.keymap.set("i", "<S-Tab>", 'copilot#Accept("\\<CR>")', {
-        expr = true,
-        replace_keycodes = false,
-      })
-      vim.g.copilot_no_tab_map = true
-    end,
-  },
-
   -- "gc" to comment visual regions/lines
   { "numToStr/Comment.nvim", opts = {} },
 
