@@ -31,7 +31,7 @@ zstyle ":completion:*" menu select
 zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
 
 # keybindings
-bindkey -v
+bindkey -e
 bindkey "^[[Z" reverse-menu-complete
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
