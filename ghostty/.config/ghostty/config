@@ -1,4 +1,4 @@
-font-size = 12
+font-size = 16
 font-feature = -calt
 font-thicken
 
@@ -17,3 +17,4 @@ window-padding-y = 0
 window-new-tab-position = end
 
 macos-titlebar-style = native
+auto-update-channel = tip
