@@ -16,6 +16,13 @@ return {
         desc = "Find existing buffers",
       },
       {
+        "<leader>gs",
+        function()
+          Snacks.picker.git_status()
+        end,
+        desc = "Search git status",
+      },
+      {
         "<leader>sd",
         function()
           Snacks.picker.diagnostics()
@@ -186,7 +193,7 @@ return {
     opts = {},
     dependencies = { "echasnovski/mini.icons", opts = {} },
     keys = {
-      { "<leader>e", ":Oil --float<CR>", desc = "Open file explorer" },
+      { "<leader>e", ":Oil<CR>", desc = "Open file explorer" },
     },
   },
 
@@ -218,6 +225,7 @@ return {
         { "<leader>c", group = "Code" },
         { "<leader>d", group = "Debug" },
         { "<leader>h", group = "Hunk" },
+        { "<leader>g", group = "Git" },
         { "<leader>s", group = "Search" },
         { "<leader>t", group = "Toggle" },
         { "<localleader>l", group = "LaTeX" },
