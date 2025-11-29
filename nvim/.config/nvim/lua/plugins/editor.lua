@@ -1,99 +1,47 @@
 return {
   -- fuzzy finder
   {
-    "folke/snacks.nvim",
-    priority = 1000,
-    lazy = false,
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-mini/mini.icons" },
     opts = {
-      picker = { enabled = true },
-    },
-    keys = {
-      {
-        "<leader><leader>",
-        function()
-          Snacks.picker.buffers()
-        end,
-        desc = "Find existing buffers",
+      winopts = {
+        preview = {
+          scrollbar = false,
+        },
       },
-      {
-        "<leader>gs",
-        function()
-          Snacks.picker.git_status()
-        end,
-        desc = "Search git status",
-      },
-      {
-        "<leader>sd",
-        function()
-          Snacks.picker.diagnostics()
-        end,
-        desc = "Search diagnostics",
-      },
-      {
-        "<leader>sf",
-        function()
-          Snacks.picker.files()
-        end,
-        desc = "Search files",
-      },
-      {
-        "<leader>sg",
-        function()
-          Snacks.picker.grep()
-        end,
-        desc = "Search by grep",
-      },
-      {
-        "<leader>sh",
-        function()
-          Snacks.picker.help()
-        end,
-        desc = "Search helptags",
-      },
-      {
-        "<leader>sk",
-        function()
-          Snacks.picker.keymaps()
-        end,
-        desc = "Search keymaps",
-      },
-      {
-        "<leader>sn",
-        function()
-          Snacks.picker.files({ cwd = vim.fn.stdpath("config") })
-        end,
-        desc = "Search Neovim files",
-      },
-      {
-        "<leader>sr",
-        function()
-          Snacks.picker.resume()
-        end,
-        desc = "Search resume",
-      },
-      {
-        "<leader>sw",
-        function()
-          Snacks.picker.grep_word()
-        end,
-        desc = "Search current word",
-        mode = { "n", "x" },
-      },
-      {
-        "<leader>s.",
-        function()
-          Snacks.picker.recent()
-        end,
-        desc = "Search recent files",
-      },
-      {
-        "<leader>s/",
-        function()
-          Snacks.picker.grep_buffers()
-        end,
-        desc = "Search in open files",
+      keymap = {
+        builtin = {
+          ["<C-d>"] = "preview-page-down",
+          ["<C-u>"] = "preview-page-up",
+        },
       },
     },
+    config = function(_, opts)
+      local fzf = require("fzf-lua")
+      fzf.setup(opts)
+
+      local function map(keys, func, desc, mode)
+        mode = mode or "n"
+        vim.keymap.set(mode, keys, func, { desc = desc })
+      end
+
+      map("<leader><leader>", fzf.buffers, "Find existing buffers")
+      map("<leader>gf", fzf.git_files, "Search Git files")
+      map("<leader>gs", fzf.git_status, "Search Git status")
+      map("<leader>sd", fzf.diagnostics_document, "Search diagnostics")
+      map("<leader>sf", fzf.files, "Search files")
+      map("<leader>sg", fzf.live_grep, "Search by grep")
+      map("<leader>sh", fzf.helptags, "Search helptags")
+      map("<leader>sk", fzf.keymaps, "Search keymaps")
+      map("<leader>sn", function()
+        FzfLua.files({ cwd = vim.fn.stdpath("config") })
+      end, "Search Neovim files")
+      map("<leader>sr", fzf.resume, "Search resume")
+      map("<leader>sw", fzf.grep_cword, "Search current word")
+      map("<leader>sw", fzf.grep_visual, "Search visual", "x")
+      map("<leader>s.", fzf.oldfiles, "Search recent files")
+      map("<leader>/", fzf.grep_curbuf, "Fuzzily search in current buffer")
+    end,
   },
 
   -- git integration
@@ -213,7 +161,6 @@ return {
     event = "VeryLazy",
     dependencies = {
       "echasnovski/mini.icons",
-      "nvim-tree/nvim-web-devicons",
     },
     opts = {
       preset = "modern",

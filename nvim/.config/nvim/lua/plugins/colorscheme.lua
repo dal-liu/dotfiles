@@ -21,8 +21,8 @@ return {
           BlinkCmpDoc = { bg = colors.menu },
           BlinkCmpDocBorder = { bg = colors.menu },
           BlinkCmpDocSeparator = { bg = colors.menu },
-          SnacksPickerDir = { fg = colors.fg },
-          SnacksPickerBufFlags = { fg = colors.comment },
+          FzfLuaBorder = { fg = colors.comment },
+          FzfLuaTitle = { fg = colors.cyan },
         }
       end,
     },
