@@ -7,11 +7,9 @@ fi
 
 # plugins
 if [[ "$OSTYPE" == darwin* ]]; then
-  source $(brew --prefix)/share/antigen/antigen.zsh
-  antigen bundle zsh-users/zsh-autosuggestions
-  antigen bundle zsh-users/zsh-syntax-highlighting
-  antigen theme romkatv/powerlevel10k
-  antigen apply
+  source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 # aliases
