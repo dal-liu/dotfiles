@@ -16,5 +16,4 @@ window-padding-x = 0
 window-padding-y = 0
 window-new-tab-position = end
 
-macos-titlebar-style = native
 auto-update-channel = tip

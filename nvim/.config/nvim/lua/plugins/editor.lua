@@ -179,4 +179,9 @@ return {
       })
     end,
   },
+
+  -- undo tree
+  {
+    "mbbill/undotree",
+  },
 }
