@@ -2,7 +2,6 @@ return {
   -- completion plugin
   {
     "saghen/blink.cmp",
-    cond = not vim.g.vscode,
     dependencies = {
       {
         "L3MON4D3/LuaSnip",

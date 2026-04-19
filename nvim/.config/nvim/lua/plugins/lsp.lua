@@ -13,9 +13,9 @@ return {
   -- LSP configuration
   {
     "neovim/nvim-lspconfig",
-    cond = not vim.g.vscode,
     dependencies = {
       "williamboman/mason.nvim",
+      { "j-hui/fidget.nvim", opts = {} },
     },
     opts = {
       servers = {
@@ -31,10 +31,8 @@ return {
         gopls = {},
         html = {},
         lua_ls = {},
-        matlab_ls = {},
         mlir_lsp_server = {},
         nixd = {},
-        racket_langserver = {},
         rust_analyzer = {},
         tblgen_lsp_server = {},
         texlab = {},
@@ -71,7 +69,7 @@ return {
             vim.lsp.buf.signature_help({ border = "rounded" })
           end, "Signature help", "i")
           map("<leader>cc", vim.lsp.codelens.run, "Run codelens", { "n", "v" })
-          map("<leader>cC", vim.lsp.codelens.refresh, "Refresh & display codelens")
+          map("<leader>cC", vim.lsp.codelens.get, "Refresh & display codelens")
           map("<leader>th", function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
           end, "Toggle inlay hints")

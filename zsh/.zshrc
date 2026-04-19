@@ -6,23 +6,22 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # plugins
-if [[ "$OSTYPE" == darwin* ]]; then
-  source $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
-  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-  source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if command -v brew &> /dev/null; then
+  BREW_PREFIX=$(brew --prefix)
+
+  source $BREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme
+  source $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  source $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 # aliases
-alias clr="clear"
 alias l="ls -CF"
 alias la="ls -A"
 alias ll="ls -alF"
-alias vim="nvim"
 
-# colors from https://github.com/ohmyzsh/ohmyzsh
+# colors
 export CLICOLOR=1
-export LSCOLORS="Gxfxcxdxbxegedabagacad"
-export LS_COLORS="di=1;36:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+export LS_COLORS="rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32:"
 
 # completion
 zstyle ":completion:*" menu select

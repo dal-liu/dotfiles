@@ -138,20 +138,14 @@ return {
   -- file explorer
   {
     "stevearc/oil.nvim",
-    opts = {},
+    opts = {
+      float = {
+        border = "rounded",
+      },
+    },
     dependencies = { "echasnovski/mini.icons", opts = {} },
     keys = {
-      { "<leader>e", ":Oil<CR>", desc = "Open file explorer" },
-    },
-  },
-
-  -- highlight todos
-  {
-    "folke/todo-comments.nvim",
-    event = "VimEnter",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = {
-      signs = false,
+      { "<leader>e", ":Oil --float<CR>", desc = "Open file explorer" },
     },
   },
 
@@ -168,7 +162,6 @@ return {
     config = function(_, opts)
       require("which-key").setup(opts)
       require("which-key").add({
-        { "<leader>b", group = "Buffer" },
         { "<leader>c", group = "Code" },
         { "<leader>d", group = "Debug" },
         { "<leader>h", group = "Hunk" },
@@ -178,10 +171,5 @@ return {
         { "<localleader>l", group = "LaTeX" },
       })
     end,
-  },
-
-  -- undo tree
-  {
-    "mbbill/undotree",
   },
 }
