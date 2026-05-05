@@ -14,8 +14,8 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "williamboman/mason.nvim",
       { "j-hui/fidget.nvim", opts = {} },
+      "williamboman/mason.nvim",
     },
     opts = {
       servers = {
@@ -32,7 +32,6 @@ return {
         html = {},
         lua_ls = {},
         mlir_lsp_server = {},
-        nixd = {},
         rust_analyzer = {},
         tblgen_lsp_server = {},
         texlab = {},
@@ -70,11 +69,14 @@ return {
           end, "Signature help", "i")
           map("<leader>cc", vim.lsp.codelens.run, "Run codelens", { "n", "v" })
           map("<leader>cC", vim.lsp.codelens.get, "Refresh & display codelens")
-          map("<leader>th", function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-          end, "Toggle inlay hints")
 
-          vim.lsp.inlay_hint.enable()
+          local client = vim.lsp.get_client_by_id(event.data.client_id)
+          if client and client:supports_method("textDocument/inlayHint", event.buf) then
+            vim.lsp.inlay_hint.enable()
+            map("<leader>th", function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
+            end, "Toggle inlay hints")
+          end
         end,
       })
 
