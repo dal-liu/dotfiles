@@ -149,6 +149,13 @@ return {
     },
   },
 
+  -- highlight TODOs
+  {
+    "folke/todo-comments.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = {},
+  },
+
   -- show pending keybinds
   {
     "folke/which-key.nvim",
